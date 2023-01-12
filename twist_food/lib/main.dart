@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:twist_food/utils/colors.dart';
 import 'package:twist_food/views/splash/splash_view.dart';
+import 'package:twist_food/views/tabs/tab_box/tab_box.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         ),
         primaryColor: TwistColor.primaryColor,
       ),
-      home: const SplashView(),
+      home: const TabBox(),
     );
   }
 }
