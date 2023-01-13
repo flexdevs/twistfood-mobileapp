@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:twist_food/routes/routes.dart';
 import 'package:twist_food/utils/colors.dart';
-import 'package:twist_food/views/splash/splash_view.dart';
-import 'package:twist_food/views/tabs/tab_box/tab_box.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -13,12 +14,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
+    return GetMaterialApp(
+      title: 'Twist Food',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // is not restarted.
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarBrightness: Brightness.dark,
             statusBarColor: Colors.white,
@@ -27,7 +27,8 @@ class MyApp extends StatelessWidget {
         ),
         primaryColor: TwistColor.primaryColor,
       ),
-      home: const TabBox(),
+      initialRoute: TwistRoutes.getSplashRoute(),
+      getPages: TwistRoutes.routes,
     );
   }
 }
