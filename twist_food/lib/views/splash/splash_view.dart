@@ -1,12 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:twist_food/routes/routes.dart';
 import 'package:twist_food/utils/colors.dart';
 import 'package:twist_food/utils/icons.dart';
 import 'package:twist_food/utils/styles.dart';
-import 'package:twist_food/views/auth/sign_in_view/sign_in_view.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -24,19 +22,8 @@ class _SplashViewState extends State<SplashView> {
     super.initState();
   }
 
-    _init();
-    super.initState();
-  }
-
-  _init() async {
-    await Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => SignInScreen(),
-          ));
-    });
-  }
+    
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
