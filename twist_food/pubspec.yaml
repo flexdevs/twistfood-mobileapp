@@ -41,6 +41,7 @@ dependencies:
   pull_to_refresh: ^2.0.0
   mask_text_input_formatter: ^2.4.0
   flutter_native_splash: ^2.2.16
+  pinput: ^2.2.21
 
   #location lib set up
   geolocator: ^9.0.2
@@ -51,6 +52,8 @@ dependencies:
   
   #language
   easy_localization: ^3.0.1
+  flutter_multi_formatter: ^2.2.1
+  
 
 
     

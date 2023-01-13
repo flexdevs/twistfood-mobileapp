@@ -26,4 +26,7 @@ class TwistIcons {
   static const String back = 'assets/svg/back.svg';
   static const String heart = 'assets/svg/heart.svg';
   static const String notification = 'assets/svg/notification.svg';
+  static const String lock = 'assets/svg/Lock.svg';
+  static const String person = 'assets/svg/person.svg';
+  static const String google = 'assets/svg/google.svg';
 }
