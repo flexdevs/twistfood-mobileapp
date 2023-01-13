@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         scaffoldBackgroundColor: TwistColor.scaffoldColor,
         appBarTheme: AppBarTheme(
+          elevation: 0,
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarBrightness: Brightness.dark,
             statusBarColor: TwistColor.scaffoldColor,

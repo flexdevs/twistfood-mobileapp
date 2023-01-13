@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:twist_food/utils/colors.dart';
 import 'package:twist_food/utils/icons.dart';
 import 'package:twist_food/utils/styles.dart';
-import 'package:twist_food/views/auth_screens/sign_in_screen/sign_in_screen.dart';
+import 'package:twist_food/views/auth/sign_in_view/sign_in_view.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});

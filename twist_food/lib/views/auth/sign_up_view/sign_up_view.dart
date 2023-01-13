@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:twist_food/utils/colors.dart';
 import 'package:twist_food/utils/icons.dart';
 import 'package:twist_food/utils/styles.dart';
-import 'package:twist_food/views/auth_screens/sign_in_screen/sign_in_screen.dart';
-import 'package:twist_food/views/auth_screens/widgets/login_button.dart';
-import 'package:twist_food/views/widgets/custom_text_field.dart';
+import 'package:twist_food/views/auth/sign_in_view/sign_in_view.dart';
+import 'package:twist_food/views/auth/widgets/login_button.dart';
+import 'package:twist_food/views/widgets/custom_text_fields.dart';
+import 'package:twist_food/views/widgets/phone_text_field.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -14,6 +16,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  final TextEditingController phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,11 +46,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
             SizedBox(height: 60.0),
             const Text('Sign Up', style: TwistStyles.w600),
             SizedBox(height: 20.0),
-            CustomTextFormField(icon: Icons.person, hintText: 'Anamwp . . |'),
+            CustomTextFormField(
+              icon: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                child: SvgPicture.asset(TwistIcons.person),
+              ),
+              hintText: 'Name',
+              keyboardType: TextInputType.text,
+            ),
             SizedBox(height: 12.0),
-            CustomTextFormField(icon: Icons.email, hintText: 'Email'),
-            SizedBox(height: 12.0),
-            CustomTextFormField(icon: Icons.lock, hintText: 'Password'),
+            PhoneTextFormField(
+              icon: Text(' +998 ',
+                  style: TwistStyles.w500.copyWith(fontSize: 16.0)),
+              hintText: '** *** ** **',
+              keyboardType: TextInputType.phone,
+              phoneController: phoneController,
+            ),
             SizedBox(height: 20.0),
             LoginButton(
               onTap: () {},
@@ -63,9 +77,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ));
               },
               child: Text(
-                "don't have an account?",
-                style: TwistStyles.w400
-                    .copyWith(fontSize: 14.0, color: TwistColor.primaryColor),
+                "Do you have already an account?",
+                style: TwistStyles.w400.copyWith(
+                  fontSize: 14.0,
+                  color: TwistColor.primaryColor,
+                  decoration: TextDecoration.underline,
+                ),
               ),
             )
           ],
