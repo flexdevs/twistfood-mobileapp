@@ -17,13 +17,16 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // is not restarted.
+        scaffoldBackgroundColor: TwistColor.scaffoldColor,
         appBarTheme: AppBarTheme(
+          elevation: 0,
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarBrightness: Brightness.dark,
-            statusBarColor: Colors.white,
+            statusBarColor: TwistColor.scaffoldColor,
             statusBarIconBrightness: Brightness.dark,
           ),
         ),
+        primarySwatch: white,
         primaryColor: TwistColor.primaryColor,
       ),
       home: const SplashView(),
