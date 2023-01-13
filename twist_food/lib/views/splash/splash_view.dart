@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:twist_food/routes/routes.dart';
 import 'package:twist_food/utils/colors.dart';
 import 'package:twist_food/utils/icons.dart';
 import 'package:twist_food/utils/styles.dart';
@@ -14,6 +18,12 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
+
+    Timer(const Duration(milliseconds: 1000),
+        () => Get.offAndToNamed(TwistRoutes.getTabBoxRoute()));
+    super.initState();
+  }
+
     _init();
     super.initState();
   }
@@ -27,7 +37,6 @@ class _SplashViewState extends State<SplashView> {
           ));
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
