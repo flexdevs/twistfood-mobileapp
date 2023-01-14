@@ -16,10 +16,8 @@ import 'package:twist_food/utils/helper.dart';
 class OpenApiService {
   ApiClient apiClient = ApiClient();
 
-
   // GET Categories
   Future<List<AllCategoriesModel>> getCategories({
-    required BuildContext context,
     int page = 1,
   }) async {
     try {
@@ -35,15 +33,12 @@ class OpenApiService {
         return [];
       }
     } on DioError catch (e) {
-      var message = CustomException.fromDioError(e).toString();
-      showTopSnackBar(
-          Overlay.of(context)!, CustomSnackBar.error(message: message));
-      return [];
+      throw Exception(e);
     }
   }
+
   // GET Discounts
   Future<List<DiscountsModel>> getDiscounts({
-    required BuildContext context,
     int page = 1,
   }) async {
     try {
@@ -59,15 +54,12 @@ class OpenApiService {
         return [];
       }
     } on DioError catch (e) {
-      var message = CustomException.fromDioError(e).toString();
-      showTopSnackBar(
-          Overlay.of(context)!, CustomSnackBar.error(message: message));
-      return [];
+      throw Exception(e);
     }
   }
+
   // GET All Produts
   Future<List<AllProductsModel>> getAllProducts({
-    required BuildContext context,
     int page = 1,
   }) async {
     try {
@@ -83,15 +75,12 @@ class OpenApiService {
         return [];
       }
     } on DioError catch (e) {
-      var message = CustomException.fromDioError(e).toString();
-      showTopSnackBar(
-          Overlay.of(context)!, CustomSnackBar.error(message: message));
-      return [];
+      throw Exception(e);
     }
   }
+
   // GET products by id
   Future<ProductsByIdModel> getProductById({
-    required BuildContext context,
     required int id,
   }) async {
     try {
@@ -107,15 +96,12 @@ class OpenApiService {
         throw Exception();
       }
     } on DioError catch (e) {
-      var message = CustomException.fromDioError(e).toString();
-      showTopSnackBar(
-          Overlay.of(context)!, CustomSnackBar.error(message: message));
       throw Exception(e);
     }
   }
+
   //  Search Product by name
   Future<List<SearchProductNameModel>> searchByProductName({
-    required BuildContext context,
     required String searchName,
   }) async {
     try {
@@ -131,12 +117,10 @@ class OpenApiService {
         return [];
       }
     } on DioError catch (e) {
-      var message = CustomException.fromDioError(e).toString();
-      showTopSnackBar(
-          Overlay.of(context)!, CustomSnackBar.error(message: message));
-      return [];
+      throw Exception(e);
     }
   }
+
   //  Search by product and categories name
   Future<List<SearchProductNameModel>> searchProduct(
       [String? searchName, String? categryName]) async {
@@ -158,8 +142,7 @@ class OpenApiService {
   }
 
   Future<OrdersCreateModel> createOrder(
-      {required BuildContext context,
-      required int userId,
+      {required int userId,
       required double lat,
       required double long,
       required double deliverPrice,
@@ -186,10 +169,7 @@ class OpenApiService {
         throw Exception();
       }
     } on DioError catch (e) {
-      var message = CustomException.fromDioError(e).toString();
-      Helper.showTopSnackbarError(context: context, message: message);
-      throw Exception();
+      throw Exception(e);
     }
   }
-  
 }
