@@ -1,17 +1,17 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:twist_food/data/db/storage.dart';
 import 'package:twist_food/data/services/api/secure_api_service.dart/secure_api_service.dart';
+import 'package:twist_food/routes/routes.dart';
 import 'package:twist_food/utils/colors.dart';
+import 'package:twist_food/utils/helper.dart';
 import 'package:twist_food/utils/styles.dart';
 import 'package:twist_food/views/auth/verify_view/app_bar_back.dart';
-import 'package:twist_food/views/tabs/tab_box/tab_box.dart';
 
-class VerifiyScreen extends StatefulWidget {
-  VerifiyScreen({
+class VerifiyView extends StatefulWidget {
+  VerifiyView({
     super.key,
     required this.phoneNumber,
     this.userName,
@@ -24,10 +24,10 @@ class VerifiyScreen extends StatefulWidget {
   Duration duration = Duration(minutes: 2);
 
   @override
-  State<VerifiyScreen> createState() => _VerifiyScreenState();
+  State<VerifiyView> createState() => _VerifiyViewState();
 }
 
-class _VerifiyScreenState extends State<VerifiyScreen> {
+class _VerifiyViewState extends State<VerifiyView> {
   final TextEditingController pinController = TextEditingController();
   ApiService apiService = ApiService();
   bool isVerified = true;
@@ -121,22 +121,23 @@ class _VerifiyScreenState extends State<VerifiyScreen> {
             ),
             Center(
               child: Visibility(
-                  visible: sendAgainButton,
-                  child: TextButton(
-                    child: Text(
-                      'Send code again',
-                      style: TwistStyles.w500.copyWith(color: TwistColor.red),
-                    ),
-                    onPressed: () async {
-                      await apiService.sendCodeToPhone(
-                        context: context,
-                        phoneNumber: widget.phoneNumber.replaceAll(' ', ''),
-                      );
-                      setState(() {
-                        sendAgainButton = false;
-                      });
-                    },
-                  )),
+                visible: sendAgainButton,
+                child: TextButton(
+                  child: Text(
+                    'Send code again',
+                    style: TwistStyles.w500.copyWith(color: TwistColor.red),
+                  ),
+                  onPressed: () async {
+                    await apiService.sendCodeToPhone(
+                      context: context,
+                      phoneNumber: widget.phoneNumber.replaceAll(' ', ''),
+                    );
+                    setState(() {
+                      sendAgainButton = false;
+                    });
+                  },
+                ),
+              ),
             )
           ],
         ),
@@ -153,12 +154,7 @@ class _VerifiyScreenState extends State<VerifiyScreen> {
         .then((value) async {
       if (value.isNotEmpty) {
         LocalStorage.instance.setString(value: value, key: 'token');
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => TabBox(),
-          ),
-        );
+        Get.offNamed(TwistRoutes.getTabBoxRoute());
       }
     });
   }
@@ -179,17 +175,7 @@ class _VerifiyScreenState extends State<VerifiyScreen> {
     )
         .then((value) {
       if (value) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => TabBox(),
-          ),
-        );
-      } else {
-        showTopSnackBar(
-          Overlay.of(context)!,
-          const CustomSnackBar.error(message: 'User already exist'),
-        );
+        Get.offNamedUntil(TwistRoutes.getTabBoxRoute(), (route) => false);
       }
     });
   }
@@ -204,8 +190,8 @@ class _VerifiyScreenState extends State<VerifiyScreen> {
         }
       } else {
         if (mySeconds == 0) {
-          showTopSnackBar(Overlay.of(context)!,
-              CustomSnackBar.error(message: 'Verify code expired'));
+          Helper.showTopSnackbarError(
+              context: context, message: 'Verify code expired');
         }
 
         setState(() {
@@ -214,5 +200,11 @@ class _VerifiyScreenState extends State<VerifiyScreen> {
         _timer.cancel();
       }
     });
+  }
+
+  @override
+  void dispose() {
+    pinController.dispose();
+    super.dispose();
   }
 }

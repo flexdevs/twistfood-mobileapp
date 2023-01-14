@@ -1,8 +1,12 @@
+import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:twist_food/data/db/storage.dart';
+import 'package:twist_food/routes/routes.dart';
 import 'package:twist_food/utils/colors.dart';
 import 'package:twist_food/utils/icons.dart';
 import 'package:twist_food/utils/styles.dart';
-import 'package:twist_food/views/auth/sign_in_view/sign_in_view.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -14,18 +18,14 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
-    _init();
-    super.initState();
-  }
-
-  _init() async {
-    await Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => SignInScreen(),
-          ));
+    Timer(const Duration(milliseconds: 1000), () {
+      if (LocalStorage.instance.getString(key: 'token').isNotEmpty) {
+        Get.offAndToNamed(TwistRoutes.getTabBoxRoute());
+      } else {
+        Get.offAndToNamed(TwistRoutes.getLoginRoute());
+      }
     });
+    super.initState();
   }
 
   @override
