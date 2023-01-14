@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 
 class TwistColor {
   static Color primaryColor = const Color(0xff53E88B);
+
+  static Color C_53E88B = const Color(0xff53E88B);
+  static Color C_15BE77 = const Color(0xff15BE77);
+  static Color C_FF7C32 = const Color(0xffFF7C32);
   static Color scaffoldColor = const Color(0xffFEFEFF);
   static Color borderColor = const Color(0xffF4F4F4);
   static Color black = const Color(0xff000000);

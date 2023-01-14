@@ -26,11 +26,6 @@ dependencies:
   shared_preferences: ^2.0.15
 
   # state management
-  flutter_bloc: ^8.1.1
-  formz: ^0.4.1
-  equatable: ^2.0.5
-
-  # route management
   get: ^4.6.5
   
   # ui
@@ -38,6 +33,7 @@ dependencies:
   fluttertoast: ^8.1.2
   scroll_to_index: ^3.0.1
   carousel_slider: ^4.2.1
+  smooth_page_indicator: ^1.0.0+2
   cached_network_image: ^3.2.3
   sms_autofill: ^2.2.0
   flutter_svg: ^1.1.6

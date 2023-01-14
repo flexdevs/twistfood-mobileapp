@@ -31,7 +31,7 @@ class _TabBoxState extends State<TabBox> {
   bodySection() {
     switch (index) {
       case 0:
-        return const HomeViw();
+        return const HomeView();
       case 1:
         return const BascketView();
       case 2:
@@ -108,6 +108,61 @@ class _TabBoxState extends State<TabBox> {
         ],
         onItemSelected: (index) => setState(() => this.index = index),
       ),
+    return BottomNavyBar(
+      containerHeight: 70,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      selectedIndex: index,  
+      items: [
+        BottomNavyBarItem(
+          title: Text('Home',
+              style: TwistStyles.w400
+                  .copyWith(fontSize: 16, color: TwistColor.C_09051C)),
+          icon: SvgPicture.asset(
+            TwistIcons.home,
+            color: TwistColor.C_53E88B,
+          ),
+          activeColor: TwistColor.primaryColor,
+          inactiveColor: TwistColor.C_53E88B,
+          textAlign: TextAlign.center,
+        ),
+        BottomNavyBarItem(
+            icon: SvgPicture.asset(
+              TwistIcons.cart,
+              width: 26,
+              height: 26,
+              color: TwistColor.C_53E88B,
+            ),
+            title: Text(
+              'Cart',
+              style: TwistStyles.w400
+                  .copyWith(fontSize: 16, color: TwistColor.C_09051C),
+            ),
+            activeColor: TwistColor.primaryColor,
+            textAlign: TextAlign.center),
+        BottomNavyBarItem(
+          icon: SvgPicture.asset(
+            TwistIcons.orders,
+            color: TwistColor.C_53E88B,
+          ),
+          title: Text('Orders',
+              style: TwistStyles.w400
+                  .copyWith(fontSize: 16, color: TwistColor.C_09051C)),
+          activeColor: TwistColor.primaryColor,
+          textAlign: TextAlign.center,
+        ),
+        BottomNavyBarItem(
+          icon: SvgPicture.asset(
+            TwistIcons.profile,
+            color: TwistColor.C_53E88B,
+          ),
+          title: Text('Profile',
+              style: TwistStyles.w400
+                  .copyWith(fontSize: 16, color: TwistColor.C_09051C)),
+          activeColor: TwistColor.primaryColor,
+          textAlign: TextAlign.center,
+        ),
+      ],
+      onItemSelected: (index) => setState(() => this.index = index),
     );
   }
 }
