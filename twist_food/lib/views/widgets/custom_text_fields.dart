@@ -6,12 +6,14 @@ class CustomTextFormField extends StatelessWidget {
   final String hintText;
   final Widget? icon;
   final TextInputType keyboardType;
+  final TextEditingController controller;
 
   const CustomTextFormField({
     super.key,
     required this.hintText,
     this.icon,
     required this.keyboardType,
+    required this.controller,
   });
 
   @override
@@ -24,6 +26,7 @@ class CustomTextFormField extends StatelessWidget {
           borderRadius: BorderRadius.circular(15.0),
           border: Border.all(color: TwistColor.borderColor)),
       child: TextFormField(
+        controller: controller,
         keyboardType: keyboardType,
         cursorColor: TwistColor.black,
         style: TwistStyles.w400.copyWith(fontSize: 16.0),

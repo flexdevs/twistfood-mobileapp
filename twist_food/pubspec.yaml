@@ -57,6 +57,7 @@ dependencies:
   #language
   easy_localization: ^3.0.1
   flutter_multi_formatter: ^2.2.1
+  top_snackbar_flutter: ^3.0.0+1
   
 
 

@@ -29,6 +29,7 @@ class PhoneTextFormField extends StatelessWidget {
           borderRadius: BorderRadius.circular(15.0),
           border: Border.all(color: TwistColor.borderColor)),
       child: TextFormField(
+        controller: phoneController,
         keyboardType: keyboardType,
         maxLength: 12,
         cursorColor: TwistColor.black,
