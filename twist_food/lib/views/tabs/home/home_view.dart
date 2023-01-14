@@ -82,9 +82,17 @@ class _HomeViewState extends State<HomeView> {
                     height: 87,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(22),
-                    ),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(22),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.4),
+                            spreadRadius: 2,
+                            blurRadius: 6,
+                            offset: const Offset(
+                                1, 3), // changes position of shadow
+                          ),
+                        ]),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,

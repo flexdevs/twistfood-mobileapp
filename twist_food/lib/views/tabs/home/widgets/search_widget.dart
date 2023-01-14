@@ -41,6 +41,7 @@ class SearchWidget extends StatelessWidget {
           ),
           Expanded(
             child: TextFormField(
+              cursorColor: TwistColor.C_09051C,
               onChanged: (value) {},
               controller: searchController,
               focusNode: searchFocusNode,
