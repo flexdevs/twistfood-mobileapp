@@ -75,35 +75,25 @@ class _VerifiyViewState extends State<VerifiyView> {
                 Pinput(
                   controller: pinController,
                   onCompleted: (value) async {
-                    if (widget.toLogin) {
-                      await apiService
-                          .verifyCode(
-                        phoneNumber: widget.phoneNumber.replaceAll(' ', ''),
-                        code: int.parse(pinController.text),
-                        context: context,
-                      )
-                          .then((value) async {
-                        isVerified = value;
-                        if (isVerified) {
-                          await loginUser(context);
-                        }
-                      });
-                    } else {
-                      await apiService
-                          .verifyCode(
-                        phoneNumber: widget.phoneNumber.replaceAll(' ', ''),
-                        code: int.parse(pinController.text),
-                        context: context,
-                      )
-                          .then((value) async {
-                        isVerified = value;
-                        if (isVerified) {
+                    await apiService
+                        .verifyCode(
+                      phoneNumber: widget.phoneNumber.replaceAll(' ', ''),
+                      code: int.parse(pinController.text),
+                      context: context,
+                    )
+                        .then((value) async {
+                      setState(
+                        () => isVerified = value,
+                      );
+                      if (isVerified) {
+                        if (widget.toLogin) {
+                          Get.offNamedUntil(
+                              TwistRoutes.getTabBoxRoute(), (route) => false);
+                        } else {
                           await register(context);
                         }
-                      });
-
-                      setState(() {});
-                    }
+                      }
+                    });
                   },
                   errorText: 'Wrong code!',
                   forceErrorState: !isVerified,

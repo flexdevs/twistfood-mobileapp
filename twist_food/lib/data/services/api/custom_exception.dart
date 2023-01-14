@@ -1,46 +1,63 @@
 import 'package:dio/dio.dart';
 
-class CustomException implements Exception {
-  String _message = '';
-  CustomException.fromDioError(DioError dioError) {
-    switch (dioError.type) {
-      case DioErrorType.cancel:
-        _message = "Request to API server was cancelled";
-        break;
-      case DioErrorType.connectTimeout:
-        _message = "Connection timeout with API server";
-        break;
-
-      case DioErrorType.receiveTimeout:
-        _message = "Receive timeout in connection with API server";
-        break;
-      case DioErrorType.response:
-        _message = _handleError(
-          statusCode: dioError.response?.statusCode ?? 0,
-          error: dioError.response!.statusMessage,
-        );
-        break;
-      case DioErrorType.sendTimeout:
-        _message = "Send timeout in connection with API server";
-        break;
-      default:
-        _message = "Something went wrong";
-        break;
-    }
-  }
-  String _handleError({required int statusCode, required dynamic error}) {
-    switch (statusCode) {
-      case 400:
-        return 'Code is wrong';
-      case 404:
-        return 'User not found';
-      case 500:
-        return 'Internal server error';
-      default:
-        return 'Oops something went wrong';
-    }
-  }
+class BadRequestException extends DioError {
+  BadRequestException(RequestOptions r) : super(requestOptions: r);
 
   @override
-  String toString() => _message;
+  String toString() {
+    return 'Invalid request';
+  }
+}
+
+class InternalServerErrorException extends DioError {
+  InternalServerErrorException(RequestOptions r) : super(requestOptions: r);
+
+  @override
+  String toString() {
+    return 'Unknown error occurred, please try again later.';
+  }
+}
+
+class ConflictException extends DioError {
+  ConflictException(RequestOptions r) : super(requestOptions: r);
+
+  @override
+  String toString() {
+    return 'Conflict occurred';
+  }
+}
+
+class UnauthorizedException extends DioError {
+  UnauthorizedException(RequestOptions r) : super(requestOptions: r);
+
+  @override
+  String toString() {
+    return 'Access denied';
+  }
+}
+
+class NotFoundException extends DioError {
+  NotFoundException(RequestOptions r) : super(requestOptions: r);
+
+  @override
+  String toString() {
+    return 'The requested information could not be found';
+  }
+}
+
+class NoInternetConnectionException extends DioError {
+  NoInternetConnectionException(RequestOptions r) : super(requestOptions: r);
+
+  @override
+  String toString() {
+    return 'No internet connection detected, please try again.';
+  }
+}
+
+class DeadlineExceededException extends DioError {
+  DeadlineExceededException(RequestOptions r) : super(requestOptions: r);
+  @override
+  String toString() {
+    return 'The connection has timed out, please try again.';
+  }
 }

@@ -82,21 +82,29 @@ class _SignInViewState extends State<SignInView> {
                       context: context, message: 'Please enter correct number');
                   return;
                 }
-
                 await apiService
-                    .sendCodeToPhone(
-                      context: context,
-                      phoneNumber: phoneController.text.replaceAll(' ', ''),
-                    )
-                    .then(
-                      (value) => Get.toNamed(
-                        TwistRoutes.getVerifyView(),
-                        arguments: [
-                          phoneController.text,
-                          true,
-                        ],
-                      ),
-                    );
+                    .loginUser(
+                  context: context,
+                  phoneNumber: phoneController.text.replaceAll(' ', ''),
+                )
+                    .then((value) async {
+                  if (value.isNotEmpty) {
+                    await apiService
+                        .sendCodeToPhone(
+                          context: context,
+                          phoneNumber: phoneController.text.replaceAll(' ', ''),
+                        )
+                        .then(
+                          (value) => Get.toNamed(
+                            TwistRoutes.getVerifyView(),
+                            arguments: [
+                              phoneController.text,
+                              true,
+                            ],
+                          ),
+                        );
+                  }
+                });
               },
               textButton: 'Login',
             ),
