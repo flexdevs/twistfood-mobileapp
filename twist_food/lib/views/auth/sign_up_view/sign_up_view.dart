@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
-import 'package:twist_food/data/services/api/api_service.dart';
+import 'package:twist_food/data/services/api/secure_api_service.dart/secure_api_service.dart';
 import 'package:twist_food/utils/colors.dart';
 import 'package:twist_food/utils/icons.dart';
 import 'package:twist_food/utils/styles.dart';
