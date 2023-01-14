@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:twist_food/controllers/home/home_controller.dart';
 import 'package:twist_food/utils/styles.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:twist_food/utils/colors.dart';
 import 'package:twist_food/utils/icons.dart';
-import 'package:twist_food/utils/styles.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:twist_food/views/tabs/home/widgets/carouse_loading.dart';
 import 'package:twist_food/views/tabs/home/widgets/carousel_item.dart';
 import 'package:twist_food/views/tabs/home/widgets/search_widget.dart';
 
@@ -26,6 +21,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   late TextEditingController searchController;
   final smoothController = PageController();
+  final HomeController homeController = Get.put(HomeController());
   FocusNode searchFocusNode = FocusNode();
   var selectedIndex = -1;
   var activeIndex = 0;
