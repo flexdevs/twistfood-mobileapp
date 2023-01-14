@@ -31,9 +31,9 @@ class CustomException implements Exception {
   String _handleError({required int statusCode, required dynamic error}) {
     switch (statusCode) {
       case 400:
-        return 'Bad request';
+        return 'Code is wrong';
       case 404:
-        return error;
+        return 'User not found';
       case 500:
         return 'Internal server error';
       default:

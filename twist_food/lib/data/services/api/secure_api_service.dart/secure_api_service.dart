@@ -5,6 +5,7 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:twist_food/data/services/api/api_client.dart';
 import 'package:twist_food/data/services/api/custom_exception.dart';
 import 'package:twist_food/utils/constants.dart';
+import 'package:twist_food/utils/helper.dart';
 
 class ApiService {
   ApiClient apiClient = ApiClient();
@@ -30,8 +31,7 @@ class ApiService {
       }
     } on DioError catch (e) {
       var message = CustomException.fromDioError(e).toString();
-      showTopSnackBar(
-          Overlay.of(context)!, CustomSnackBar.error(message: message));
+      Helper.showTopSnackbarError(context: context, message: message);
       return false;
     }
   }
@@ -59,8 +59,7 @@ class ApiService {
       }
     } on DioError catch (e) {
       var message = CustomException.fromDioError(e).toString();
-      showTopSnackBar(
-          Overlay.of(context)!, CustomSnackBar.error(message: message));
+      Helper.showTopSnackbarError(context: context, message: message);
       return false;
     }
   }
@@ -90,8 +89,7 @@ class ApiService {
       }
     } on DioError catch (e) {
       var message = CustomException.fromDioError(e).toString();
-      showTopSnackBar(
-          Overlay.of(context)!, CustomSnackBar.error(message: message));
+      Helper.showBottomSnackbarError(context: context, message: message);
       return false;
     }
   }
@@ -115,8 +113,7 @@ class ApiService {
       }
     } on DioError catch (e) {
       var message = CustomException.fromDioError(e).toString();
-      showTopSnackBar(
-          Overlay.of(context)!, CustomSnackBar.error(message: message));
+      Helper.showTopSnackbarError(context: context, message: message);
       return '';
     }
   }
