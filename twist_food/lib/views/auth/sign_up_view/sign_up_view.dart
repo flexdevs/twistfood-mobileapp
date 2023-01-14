@@ -2,10 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:twist_food/data/services/api/secure_api_service.dart/secure_api_service.dart';
+import 'package:twist_food/routes/routes.dart';
 import 'package:twist_food/utils/colors.dart';
+import 'package:twist_food/utils/helper.dart';
 import 'package:twist_food/utils/icons.dart';
 import 'package:twist_food/utils/styles.dart';
 import 'package:twist_food/views/auth/sign_in_view/sign_in_view.dart';
@@ -14,16 +17,17 @@ import 'package:twist_food/views/auth/widgets/login_button.dart';
 import 'package:twist_food/views/widgets/custom_text_fields.dart';
 import 'package:twist_food/views/widgets/phone_text_field.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class SignUpView extends StatefulWidget {
+  const SignUpView({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<SignUpView> createState() => _SignUpViewState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignUpViewState extends State<SignUpView> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
+
   ApiService apiService = ApiService();
   @override
   Widget build(BuildContext context) {
@@ -33,6 +37,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         elevation: 0,
       ),
       body: SingleChildScrollView(
+        reverse: true,
         child: Column(
           children: [
             Image.asset(
@@ -86,10 +91,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               onTap: () async {
                 if (nameController.text.isEmpty ||
                     phoneController.text.isEmpty) {
-                  showTopSnackBar(
-                    Overlay.of(context)!,
-                    CustomSnackBar.error(message: 'Please fill fields'),
-                  );
+                  Helper.showTopSnackbarError(
+                      context: context, message: 'Please fill fields');
                   return;
                 }
                 await sendCodeToPhone(context);
@@ -98,13 +101,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             SizedBox(height: 20.0),
             GestureDetector(
-              onTap: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SignInScreen(),
-                    ));
-              },
+              onTap: () => Get.offNamed(TwistRoutes.getLoginRoute()),
               child: Text(
                 "Do you have already an account?",
                 style: TwistStyles.w400.copyWith(
@@ -128,22 +125,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
     )
         .then((value) {
       if (value) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => VerifiyScreen(
-              phoneNumber: phoneController.text,
-              userName: nameController.text,
-              toLogin: false,
-            ),
-          ),
-        );
-      } else {
-        showTopSnackBar(
-          Overlay.of(context)!,
-          CustomSnackBar.error(message: 'Something get error'),
+        Get.toNamed(
+          TwistRoutes.getVerifyView(),
+          arguments: [
+            phoneController.text,
+            false,
+            nameController.text,
+          ],
         );
       }
     });
+  }
+
+  @override
+  void dispose() {
+    phoneController.dispose();
+    nameController.dispose();
+    super.dispose();
   }
 }

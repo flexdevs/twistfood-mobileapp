@@ -1,25 +1,23 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
-import 'package:twist_food/data/db/storage.dart';
+import 'package:get/get.dart';
 import 'package:twist_food/data/services/api/secure_api_service.dart/secure_api_service.dart';
+import 'package:twist_food/routes/routes.dart';
 import 'package:twist_food/utils/colors.dart';
+import 'package:twist_food/utils/helper.dart';
 import 'package:twist_food/utils/icons.dart';
 import 'package:twist_food/utils/styles.dart';
-import 'package:twist_food/views/auth/sign_up_view/sign_up_view.dart';
-import 'package:twist_food/views/auth/verify_view/verify_view.dart';
 import 'package:twist_food/views/auth/widgets/google_button.dart';
 import 'package:twist_food/views/auth/widgets/login_button.dart';
 import 'package:twist_food/views/widgets/phone_text_field.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+class SignInView extends StatefulWidget {
+  const SignInView({super.key});
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  State<SignInView> createState() => _SignInViewState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _SignInViewState extends State<SignInView> {
   final TextEditingController phoneController = TextEditingController();
   final ApiService apiService = ApiService();
   @override
@@ -30,6 +28,7 @@ class _SignInScreenState extends State<SignInScreen> {
         elevation: 0,
       ),
       body: SingleChildScrollView(
+        reverse: true,
         child: Column(
           children: [
             SizedBox(
@@ -79,22 +78,23 @@ class _SignInScreenState extends State<SignInScreen> {
               onTap: () async {
                 if (phoneController.text.isEmpty ||
                     phoneController.text.length < 12) {
+                  Helper.showTopSnackbarError(
+                      context: context, message: 'Please enter correct number');
                   return;
                 }
+
                 await apiService
                     .sendCodeToPhone(
                       context: context,
                       phoneNumber: phoneController.text.replaceAll(' ', ''),
                     )
                     .then(
-                      (value) => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => VerifiyScreen(
-                            phoneNumber: phoneController.text,
-                            toLogin: true,
-                          ),
-                        ),
+                      (value) => Get.toNamed(
+                        TwistRoutes.getVerifyView(),
+                        arguments: [
+                          phoneController.text,
+                          true,
+                        ],
                       ),
                     );
               },
@@ -104,14 +104,7 @@ class _SignInScreenState extends State<SignInScreen> {
               height: 20.0,
             ),
             GestureDetector(
-              onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SignUpScreen(),
-                  ),
-                );
-              },
+              onTap: () => Get.toNamed(TwistRoutes.getSignUpRoute()),
               child: Text(
                 "don't have an account?",
                 style: TwistStyles.w400.copyWith(
@@ -125,5 +118,11 @@ class _SignInScreenState extends State<SignInScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    phoneController.dispose();
+    super.dispose();
   }
 }

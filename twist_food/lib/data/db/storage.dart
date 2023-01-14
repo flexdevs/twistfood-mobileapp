@@ -10,4 +10,6 @@ class LocalStorage {
       sharedPreferences.setString(key, value);
   void setInt({required int value, required String key}) =>
       sharedPreferences.setInt(key, value);
+  String getString({required String key}) =>
+      sharedPreferences.getString(key) ?? '';
 }

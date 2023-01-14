@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:twist_food/data/db/storage.dart';
 import 'package:twist_food/routes/routes.dart';
 import 'package:twist_food/utils/colors.dart';
 import 'package:twist_food/utils/icons.dart';
@@ -16,14 +18,16 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
-
-    Timer(const Duration(milliseconds: 1000),
-        () => Get.offAndToNamed(TwistRoutes.getTabBoxRoute()));
+    Timer(const Duration(milliseconds: 1000), () {
+      if (LocalStorage.instance.getString(key: 'token').isNotEmpty) {
+        Get.offAndToNamed(TwistRoutes.getTabBoxRoute());
+      } else {
+        Get.offAndToNamed(TwistRoutes.getLoginRoute());
+      }
+    });
     super.initState();
   }
 
-    
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

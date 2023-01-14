@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:twist_food/data/db/storage.dart';
-import 'package:twist_food/utils/colors.dart';
-import 'package:twist_food/views/splash/splash_view.dart';
-import 'package:twist_food/views/tabs/tab_box/tab_box.dart';
-import 'package:get/get.dart';
 import 'package:twist_food/routes/routes.dart';
 import 'package:twist_food/utils/colors.dart';
-
+import 'package:twist_food/views/splash/splash_view.dart';
+import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,6 +38,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: TwistColor.scaffoldColor,
         primaryColor: TwistColor.primaryColor,
       ),
+      home: const SplashView(),
     );
   }
 }
