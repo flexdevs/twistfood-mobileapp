@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:twist_food/data/db/storage.dart';
 import 'package:twist_food/data/services/api/secure_api_service.dart/secure_api_service.dart';
 import 'package:twist_food/routes/routes.dart';
 import 'package:twist_food/utils/colors.dart';
@@ -89,6 +90,7 @@ class _SignInViewState extends State<SignInView> {
                 )
                     .then((value) async {
                   if (value.isNotEmpty) {
+                    LocalStorage.instance.setString(value: value, key: 'token');
                     await apiService
                         .sendCodeToPhone(
                           context: context,

@@ -135,20 +135,6 @@ class _VerifiyViewState extends State<VerifiyView> {
     );
   }
 
-  Future<void> loginUser(BuildContext context) async {
-    await apiService
-        .loginUser(
-      phoneNumber: widget.phoneNumber.replaceAll(' ', ''),
-      context: context,
-    )
-        .then((value) async {
-      if (value.isNotEmpty) {
-        LocalStorage.instance.setString(value: value, key: 'token');
-        Get.offNamedUntil(TwistRoutes.getTabBoxRoute(), (route) => false);
-      }
-    });
-  }
-
   String convertToMinute(int mySeconds) {
     if (mySeconds % 60 < 10) {
       return '0${mySeconds ~/ 60}:0${mySeconds % 60}';
