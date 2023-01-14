@@ -43,6 +43,71 @@ class _TabBoxState extends State<TabBox> {
 
 // * BottomNavigationBar Section Components
   customBottomNavigationBar() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      child: BottomNavyBar(
+        containerHeight: 74,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        selectedIndex: index,
+        itemCornerRadius: 16,
+        items: [
+          BottomNavyBarItem(
+            title: Text('Home',
+                style: TwistStyles.w400
+                    .copyWith(fontSize: 16, color: TwistColor.C_09051C)),
+            icon: SvgPicture.asset(
+              TwistIcons.home,
+              width: 23,
+              height: 23,
+              color: TwistColor.C_53E88B,
+            ),
+            activeColor: TwistColor.primaryColor,
+            inactiveColor: TwistColor.C_53E88B,
+            textAlign: TextAlign.center,
+          ),
+          BottomNavyBarItem(
+              icon: SvgPicture.asset(
+                TwistIcons.cart,
+                width: 26,
+                height: 26,
+                color: TwistColor.C_53E88B,
+              ),
+              title: Text(
+                'Cart',
+                style: TwistStyles.w400
+                    .copyWith(fontSize: 16, color: TwistColor.C_09051C),
+              ),
+              activeColor: TwistColor.primaryColor,
+              textAlign: TextAlign.center),
+          BottomNavyBarItem(
+            icon: SvgPicture.asset(
+              TwistIcons.orders,
+              width: 22,
+              height: 24,
+              color: TwistColor.C_53E88B,
+            ),
+            title: Text('Order',
+                style: TwistStyles.w400
+                    .copyWith(fontSize: 16, color: TwistColor.C_09051C)),
+            activeColor: TwistColor.primaryColor,
+            textAlign: TextAlign.center,
+          ),
+          BottomNavyBarItem(
+            icon: SvgPicture.asset(
+              TwistIcons.profile,
+              width: 24,
+              height: 22,
+              color: TwistColor.C_53E88B,
+            ),
+            title: Text('Profile',
+                style: TwistStyles.w400
+                    .copyWith(fontSize: 16, color: TwistColor.C_09051C)),
+            activeColor: TwistColor.primaryColor,
+            textAlign: TextAlign.center,
+          ),
+        ],
+        onItemSelected: (index) => setState(() => this.index = index),
+      ),
     return BottomNavyBar(
       containerHeight: 70,
       mainAxisAlignment: MainAxisAlignment.spaceAround,

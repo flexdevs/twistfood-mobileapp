@@ -1,9 +1,15 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import 'package:twist_food/data/services/api/secure_api_service.dart/secure_api_service.dart';
 import 'package:twist_food/utils/colors.dart';
 import 'package:twist_food/utils/icons.dart';
 import 'package:twist_food/utils/styles.dart';
 import 'package:twist_food/views/auth/sign_in_view/sign_in_view.dart';
+import 'package:twist_food/views/auth/verify_view/verify_view.dart';
 import 'package:twist_food/views/auth/widgets/login_button.dart';
 import 'package:twist_food/views/widgets/custom_text_fields.dart';
 import 'package:twist_food/views/widgets/phone_text_field.dart';
@@ -16,7 +22,9 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
+  ApiService apiService = ApiService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,9 +51,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
               'Deliever Favorite Food',
               style: TwistStyles.w500,
             ),
-            SizedBox(height: 60.0),
+            SizedBox(
+              height: 60.0,
+            ),
             const Text('Sign Up', style: TwistStyles.w600),
-            SizedBox(height: 20.0),
+            SizedBox(
+              height: 20.0,
+            ),
             CustomTextFormField(
               icon: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -53,18 +65,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               hintText: 'Name',
               keyboardType: TextInputType.text,
+              controller: nameController,
             ),
-            SizedBox(height: 12.0),
+            SizedBox(
+              height: 12.0,
+            ),
             PhoneTextFormField(
-              icon: Text(' +998 ',
-                  style: TwistStyles.w500.copyWith(fontSize: 16.0)),
+              icon: Text(
+                ' +998 ',
+                style: TwistStyles.w500.copyWith(fontSize: 16.0),
+              ),
               hintText: '** *** ** **',
               keyboardType: TextInputType.phone,
               phoneController: phoneController,
             ),
-            SizedBox(height: 20.0),
+            SizedBox(
+              height: 20.0,
+            ),
             LoginButton(
-              onTap: () {},
+              onTap: () async {
+                if (nameController.text.isEmpty ||
+                    phoneController.text.isEmpty) {
+                  showTopSnackBar(
+                    Overlay.of(context)!,
+                    CustomSnackBar.error(message: 'Please fill fields'),
+                  );
+                  return;
+                }
+                await sendCodeToPhone(context);
+              },
               textButton: 'Create Account',
             ),
             SizedBox(height: 20.0),
@@ -89,5 +118,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> sendCodeToPhone(BuildContext context) async {
+    await apiService
+        .sendCodeToPhone(
+      phoneNumber: phoneController.text.replaceAll(' ', ''),
+      context: context,
+    )
+        .then((value) {
+      if (value) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => VerifiyScreen(
+              phoneNumber: phoneController.text,
+              userName: nameController.text,
+              toLogin: false,
+            ),
+          ),
+        );
+      } else {
+        showTopSnackBar(
+          Overlay.of(context)!,
+          CustomSnackBar.error(message: 'Something get error'),
+        );
+      }
+    });
   }
 }

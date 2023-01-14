@@ -1,8 +1,4 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
-import 'package:twist_food/data/db/storage.dart';
-import 'package:twist_food/data/services/api/secure_api_service.dart/secure_api_service.dart';
 import 'package:twist_food/utils/colors.dart';
 import 'package:twist_food/utils/icons.dart';
 import 'package:twist_food/utils/styles.dart';
@@ -21,7 +17,6 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController phoneController = TextEditingController();
-  final ApiService apiService = ApiService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,9 +27,7 @@ class _SignInScreenState extends State<SignInScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: 10.0,
-            ),
+            SizedBox(height: 10.0),
             Image.asset(
               TwistIcons.logo,
               height: 139.0,
@@ -53,56 +46,42 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
             SizedBox(height: 60.0),
             const Text('Login To Your Account', style: TwistStyles.w600),
-            SizedBox(
-              height: 40.0,
-            ),
+            SizedBox(height: 40.0),
             PhoneTextFormField(
               icon: Text(' +998 ',
                   style: TwistStyles.w500.copyWith(fontSize: 16.0)),
-              hintText: '** *** ** **',
+              hintText: '',
               keyboardType: TextInputType.phone,
               phoneController: phoneController,
             ),
-            SizedBox(
-              height: 20.0,
-            ),
+            SizedBox(height: 20.0),
             Text('Or Continue With',
                 style: TwistStyles.w600.copyWith(fontSize: 12.0)),
-            SizedBox(
-              height: 20.0,
-            ),
+            SizedBox(height: 20.0),
             GoogleButton(),
-            SizedBox(
-              height: 36.0,
+            SizedBox(height: 20.0),
+            Text(
+              'Forgot Your Password?',
+              style: TwistStyles.w400
+                  .copyWith(fontSize: 14.0, color: TwistColor.primaryColor),
             ),
+            SizedBox(height: 36.0),
             LoginButton(
-              onTap: () async {
-                if (phoneController.text.isEmpty ||
-                    phoneController.text.length < 12) {
-                  return;
-                }
-                await apiService
-                    .sendCodeToPhone(
-                      context: context,
-                      phoneNumber: phoneController.text.replaceAll(' ', ''),
-                    )
-                    .then(
-                      (value) => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => VerifiyScreen(
-                            phoneNumber: phoneController.text,
-                            toLogin: true,
-                          ),
-                        ),
-                      ),
-                    );
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => VerifiyScreen(
+                      phoneNumber: phoneController.text,
+                      toLogin: true,
+                      userName: '',
+                    ),
+                  ),
+                );
               },
               textButton: 'Login',
             ),
-            SizedBox(
-              height: 20.0,
-            ),
+            SizedBox(height: 20.0),
             GestureDetector(
               onTap: () {
                 Navigator.pushReplacement(

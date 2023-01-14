@@ -25,5 +25,5 @@ const String cardsRoute = '/cards_view';
 const String addCardRoute = '/add_card_view';
 const String profileRoute = '/profile_view';
 class Constants {
-  static const String BASE_URL = 'http://185.217.131.186:5055/';
+  static const String BASE_URL = 'http://185.217.131.186:5055/api/';
 }

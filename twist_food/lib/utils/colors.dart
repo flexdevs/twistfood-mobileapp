@@ -10,7 +10,10 @@ class TwistColor {
   static Color borderColor = const Color(0xffF4F4F4);
   static Color black = const Color(0xff000000);
   static Color white = const Color(0xffffffff);
+  static Color red = const Color(0xffFF0000);
   static Color C_3B3B3B = const Color(0xff3B3B3B);
+  static Color C_53E88B = const Color(0xff53E88B);
+  static Color C_15BE77 = const Color(0xff15BE77);
   static Color C_DA6317 = const Color(0xffDA6317);
   static Color C_F9A84D = const Color(0xffF9A84D);
   static Color C_FEAD1D = const Color(0xffFEAD1D);
