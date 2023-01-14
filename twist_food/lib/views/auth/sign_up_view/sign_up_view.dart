@@ -3,16 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:twist_food/data/services/api/secure_api_service.dart/secure_api_service.dart';
 import 'package:twist_food/routes/routes.dart';
 import 'package:twist_food/utils/colors.dart';
 import 'package:twist_food/utils/helper.dart';
 import 'package:twist_food/utils/icons.dart';
 import 'package:twist_food/utils/styles.dart';
-import 'package:twist_food/views/auth/sign_in_view/sign_in_view.dart';
-import 'package:twist_food/views/auth/verify_view/verify_view.dart';
 import 'package:twist_food/views/auth/widgets/login_button.dart';
 import 'package:twist_food/views/widgets/custom_text_fields.dart';
 import 'package:twist_food/views/widgets/phone_text_field.dart';

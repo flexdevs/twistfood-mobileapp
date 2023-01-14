@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:twist_food/data/db/storage.dart';
 import 'package:twist_food/data/services/api/secure_api_service.dart/secure_api_service.dart';
 import 'package:twist_food/routes/routes.dart';
 import 'package:twist_food/utils/colors.dart';
@@ -82,21 +83,30 @@ class _SignInViewState extends State<SignInView> {
                       context: context, message: 'Please enter correct number');
                   return;
                 }
-
                 await apiService
-                    .sendCodeToPhone(
-                      context: context,
-                      phoneNumber: phoneController.text.replaceAll(' ', ''),
-                    )
-                    .then(
-                      (value) => Get.toNamed(
-                        TwistRoutes.getVerifyView(),
-                        arguments: [
-                          phoneController.text,
-                          true,
-                        ],
-                      ),
-                    );
+                    .loginUser(
+                  context: context,
+                  phoneNumber: phoneController.text.replaceAll(' ', ''),
+                )
+                    .then((value) async {
+                  if (value.isNotEmpty) {
+                    LocalStorage.instance.setString(value: value, key: 'token');
+                    await apiService
+                        .sendCodeToPhone(
+                          context: context,
+                          phoneNumber: phoneController.text.replaceAll(' ', ''),
+                        )
+                        .then(
+                          (value) => Get.toNamed(
+                            TwistRoutes.getVerifyView(),
+                            arguments: [
+                              phoneController.text,
+                              true,
+                            ],
+                          ),
+                        );
+                  }
+                });
               },
               textButton: 'Login',
             ),

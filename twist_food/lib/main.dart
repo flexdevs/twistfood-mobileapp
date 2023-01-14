@@ -8,6 +8,8 @@ import 'package:twist_food/utils/colors.dart';
 import 'package:twist_food/views/splash/splash_view.dart';
 import 'package:get/get.dart';
 
+final GlobalKey<ScaffoldMessengerState> snackbarKey =
+    GlobalKey<ScaffoldMessengerState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   LocalStorage.instance.sharedPreferences =
@@ -21,6 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      scaffoldMessengerKey: snackbarKey,
       title: 'Twist Food',
       debugShowCheckedModeBanner: false,
       initialRoute: TwistRoutes.getSplashRoute(),

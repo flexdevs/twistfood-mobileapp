@@ -1,15 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:twist_food/data/services/api/api_client.dart';
-import 'package:twist_food/data/services/api/custom_exception.dart';
 import 'package:twist_food/utils/constants.dart';
-import 'package:twist_food/utils/helper.dart';
 
 class ApiService {
   ApiClient apiClient = ApiClient();
-
   Future<bool> sendCodeToPhone({
     required BuildContext context,
     required String phoneNumber,
@@ -30,8 +25,6 @@ class ApiService {
         return false;
       }
     } on DioError catch (e) {
-      var message = CustomException.fromDioError(e).toString();
-      Helper.showTopSnackbarError(context: context, message: message);
       return false;
     }
   }
@@ -58,8 +51,6 @@ class ApiService {
         return false;
       }
     } on DioError catch (e) {
-      var message = CustomException.fromDioError(e).toString();
-      Helper.showTopSnackbarError(context: context, message: message);
       return false;
     }
   }
@@ -88,32 +79,24 @@ class ApiService {
         return false;
       }
     } on DioError catch (e) {
-      var message = CustomException.fromDioError(e).toString();
-      Helper.showBottomSnackbarError(context: context, message: message);
       return false;
     }
   }
 
   Future<String> loginUser(
       {required BuildContext context, required String phoneNumber}) async {
-    try {
-      Response response = await apiClient.dio.post(
-        "${Constants.BASE_URL}user/login",
-        data: {
-          'PhoneNumber': '+998$phoneNumber',
-        },
-        options: Options(
-          contentType: Headers.formUrlEncodedContentType,
-        ),
-      );
-      if (response.statusCode == 200) {
-        return response.data['token'];
-      } else {
-        return '';
-      }
-    } on DioError catch (e) {
-      var message = CustomException.fromDioError(e).toString();
-      Helper.showTopSnackbarError(context: context, message: message);
+    Response response = await apiClient.dio.post(
+      "${Constants.BASE_URL}user/login",
+      data: {
+        'PhoneNumber': '+998$phoneNumber',
+      },
+      options: Options(
+        contentType: Headers.formUrlEncodedContentType,
+      ),
+    );
+    if (response.statusCode == 200) {
+      return response.data['token'];
+    } else {
       return '';
     }
   }
