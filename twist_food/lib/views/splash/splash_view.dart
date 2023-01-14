@@ -19,11 +19,12 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     Timer(const Duration(milliseconds: 1000), () {
-      if (LocalStorage.instance.getString(key: 'token').isNotEmpty) {
-        Get.offAndToNamed(TwistRoutes.getTabBoxRoute());
-      } else {
-        Get.offAndToNamed(TwistRoutes.getLoginRoute());
-      }
+      // if (LocalStorage.instance.getString(key: 'token').isNotEmpty) {
+      //   Get.offAndToNamed(TwistRoutes.getTabBoxRoute());
+      // } else {
+      //   Get.offAndToNamed(TwistRoutes.getLoginRoute());
+      // }
+      Get.offAndToNamed(TwistRoutes.getTabBoxRoute());
     });
     super.initState();
   }
