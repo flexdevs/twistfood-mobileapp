@@ -1,31 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:twist_food/utils/styles.dart';
-
-class HomeViw extends StatefulWidget {
-  const HomeViw({super.key});
-
-  @override
-  State<HomeViw> createState() => _HomeViwState();
-}
-
-class _HomeViwState extends State<HomeViw> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text(
-          "Home",
-          style: TwistStyles.w600.copyWith(fontSize: 30),
-=======
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:twist_food/utils/colors.dart';
 import 'package:twist_food/utils/icons.dart';
 import 'package:twist_food/utils/styles.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:twist_food/views/tabs/home/widgets/carouse_loading.dart';
 import 'package:twist_food/views/tabs/home/widgets/carousel_item.dart';
 import 'package:twist_food/views/tabs/home/widgets/search_widget.dart';
 

@@ -154,7 +154,7 @@ class _VerifiyViewState extends State<VerifiyView> {
         .then((value) async {
       if (value.isNotEmpty) {
         LocalStorage.instance.setString(value: value, key: 'token');
-        Get.offNamed(TwistRoutes.getTabBoxRoute());
+        Get.offNamedUntil(TwistRoutes.getTabBoxRoute(), (route) => false);
       }
     });
   }
@@ -175,7 +175,7 @@ class _VerifiyViewState extends State<VerifiyView> {
     )
         .then((value) {
       if (value) {
-        Get.offNamedUntil(TwistRoutes.getTabBoxRoute(), (route) => false);
+        Get.offNamedUntil(TwistRoutes.getTabBoxRoute(), (route) => true);
       }
     });
   }
