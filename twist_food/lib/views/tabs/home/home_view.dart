@@ -1,3 +1,22 @@
+import 'package:flutter/material.dart';
+import 'package:twist_food/utils/styles.dart';
+
+class HomeViw extends StatefulWidget {
+  const HomeViw({super.key});
+
+  @override
+  State<HomeViw> createState() => _HomeViwState();
+}
+
+class _HomeViwState extends State<HomeViw> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text(
+          "Home",
+          style: TwistStyles.w600.copyWith(fontSize: 30),
+=======
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -82,9 +101,17 @@ class _HomeViewState extends State<HomeView> {
                     height: 87,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(22),
-                    ),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(22),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.4),
+                            spreadRadius: 2,
+                            blurRadius: 6,
+                            offset: const Offset(
+                                1, 3), // changes position of shadow
+                          ),
+                        ]),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,

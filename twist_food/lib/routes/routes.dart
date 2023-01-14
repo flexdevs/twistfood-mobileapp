@@ -2,7 +2,9 @@ import 'package:get/get.dart';
 import 'package:twist_food/utils/constants.dart';
 import 'package:twist_food/views/auth/sign_in_view/sign_in_view.dart';
 import 'package:twist_food/views/auth/sign_up_view/sign_up_view.dart';
+
 import 'package:twist_food/views/auth/verify_view/verify_view.dart';
+
 import 'package:twist_food/views/splash/splash_view.dart';
 import 'package:twist_food/views/tabs/basket/basket_view.dart';
 import 'package:twist_food/views/tabs/home/home_view.dart';
@@ -18,8 +20,11 @@ class TwistRoutes {
   static String getOrdersRoute() => ordersRoute;
   static String getProfileRoute() => profileRoute;
   static String getLoginRoute() => loginRoute;
+
   static String getSignUpRoute() => registerRoute;
   static String getVerifyView() => smsVerificationRoute;
+
+  static String getRegisterRoute() => registerRoute;
 
   static List<GetPage> routes = [
     GetPage(name: splashRoute, page: () => const SplashView()),

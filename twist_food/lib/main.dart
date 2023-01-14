@@ -6,6 +6,7 @@ import 'package:twist_food/data/db/storage.dart';
 import 'package:twist_food/routes/routes.dart';
 import 'package:twist_food/utils/colors.dart';
 import 'package:twist_food/views/splash/splash_view.dart';
+import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
