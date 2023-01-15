@@ -54,6 +54,7 @@ class OpenApiService {
         return [];
       }
     } on DioError catch (e) {
+      
       throw Exception(e);
     }
   }

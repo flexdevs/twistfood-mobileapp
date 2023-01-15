@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:twist_food/controllers/home/home_controller.dart';
 import 'package:twist_food/utils/colors.dart';
 import 'package:twist_food/utils/icons.dart';
 import 'package:twist_food/utils/styles.dart';
+import 'package:twist_food/views/tabs/home/widgets/carouse_loading.dart';
 import 'package:twist_food/views/tabs/home/widgets/carousel_item.dart';
 import 'package:twist_food/views/tabs/home/widgets/search_widget.dart';
 
 import 'widgets/category_widget.dart';
 import 'widgets/home_appbar.dart';
-import 'widgets/twotext_widget.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -48,90 +50,113 @@ class _HomeViewState extends State<HomeView> {
       appBar: const HomeAppBar(),
       body: Column(
         children: [
-          Column(
-            children: [
-              SearchWidget(
-                  searchController: searchController,
-                  searchFocusNode: searchFocusNode),
-              getCategoryMethod(),
-            ],
+          // Column(
+          //   children: [
+          //     SearchWidget(
+          //         searchController: searchController,
+          //         searchFocusNode: searchFocusNode),
+          //     getCategoryMethod(),
+          //   ],
+          // ),
+          SizedBox(
+            height: 200.0,
+            child: GetBuilder<HomeController>(builder: (c) {
+              if (c.isLoading) {
+                if (c.discountData.isNotEmpty) {
+                  debugPrint('Data keldi');
+
+                  return CarouselDiscountItem(
+                    discountData: c.discountData,
+                  );
+                } else {
+                  return const CarouselLoading();
+                }
+              } else if (c.discountData.isNotEmpty) {
+                return CarouselDiscountItem(
+                  discountData: c.discountData,
+                );
+              } else {
+                return Container();
+              }
+            }),
           ),
-          Expanded(
-            child: ListView(
-              physics: const BouncingScrollPhysics(),
-              children: [
-                TwoRowTextWidget(
-                  onTap: () {},
-                  title: 'Speacial Offers',
-                ),
-                const CarouselDiscountItem(),
-                TwoRowTextWidget(
-                  onTap: () {},
-                  title: 'Popular Menu',
-                ),
-                ...List.generate(
-                  8,
-                  (index) => Container(
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 10),
-                    height: 87,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(22),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.4),
-                            spreadRadius: 2,
-                            blurRadius: 6,
-                            offset: const Offset(
-                                1, 3), // changes position of shadow
-                          ),
-                        ]),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Image.asset(TwistIcons.menu1),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 50, left: 21),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Green Noddle",
-                                style: TwistStyles.w400.copyWith(
-                                  color: TwistColor.C_09051C,
-                                  fontSize: 15,
-                                ),
-                              ),
-                              Text(
-                                "Noodle Home",
-                                style: TwistStyles.w400.copyWith(
-                                  color: TwistColor.C_3B3B3B.withOpacity(0.3),
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Text(
-                          "KZT 1500",
-                          style: TwistStyles.w400.copyWith(
-                            color: TwistColor.C_FEAD1D,
-                            fontSize: 24,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          )
+          // Expanded(
+          //   child: ListView(
+          //     physics: const BouncingScrollPhysics(),
+          //     children: [
+          //       TwoRowTextWidget(
+          //         onTap: () {},
+          //         title: 'Speacial Offers',
+          //       ),
+
+          //       // const CarouselDiscountItem(),
+          //       TwoRowTextWidget(
+          //         onTap: () {},
+          //         title: 'Popular Menu',
+          //       ),
+          //       ...List.generate(
+          //         8,
+          //         (index) => Container(
+          //           margin: const EdgeInsets.symmetric(
+          //               horizontal: 24, vertical: 10),
+          //           height: 87,
+          //           width: double.infinity,
+          //           decoration: BoxDecoration(
+          //               color: Colors.white,
+          //               borderRadius: BorderRadius.circular(22),
+          //               boxShadow: [
+          //                 BoxShadow(
+          //                   color: Colors.grey.withOpacity(0.4),
+          //                   spreadRadius: 2,
+          //                   blurRadius: 6,
+          //                   offset: const Offset(
+          //                       1, 3), // changes position of shadow
+          //                 ),
+          //               ]),
+          //           child: Row(
+          //             mainAxisAlignment: MainAxisAlignment.start,
+          //             crossAxisAlignment: CrossAxisAlignment.center,
+          //             children: [
+          //               const SizedBox(
+          //                 width: 10,
+          //               ),
+          //               Image.asset(TwistIcons.menu1),
+          //               Padding(
+          //                 padding: const EdgeInsets.only(right: 50, left: 21),
+          //                 child: Column(
+          //                   mainAxisAlignment: MainAxisAlignment.center,
+          //                   children: [
+          //                     Text(
+          //                       "Green Noddle",
+          //                       style: TwistStyles.w400.copyWith(
+          //                         color: TwistColor.C_09051C,
+          //                         fontSize: 15,
+          //                       ),
+          //                     ),
+          //                     Text(
+          //                       "Noodle Home",
+          //                       style: TwistStyles.w400.copyWith(
+          //                         color: TwistColor.C_3B3B3B.withOpacity(0.3),
+          //                         fontSize: 15,
+          //                       ),
+          //                     ),
+          //                   ],
+          //                 ),
+          //               ),
+          //               Text(
+          //                 "KZT 1500",
+          //                 style: TwistStyles.w400.copyWith(
+          //                   color: TwistColor.C_FEAD1D,
+          //                   fontSize: 24,
+          //                 ),
+          //               ),
+          //             ],
+          //           ),
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // )
         ],
       ),
     );

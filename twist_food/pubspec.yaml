@@ -18,6 +18,7 @@ dependencies:
 
   #  service
   dio: ^4.0.6
+  http: ^0.13.5
   json_serializable: ^6.5.4
 
   # db
